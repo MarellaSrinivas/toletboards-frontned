@@ -1,0 +1,61 @@
+.location-card{
+
+    margin-top:30px;
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+}
+
+.location-card h2{
+
+    margin-bottom:25px;
+
+}
+
+.map-placeholder{
+
+    height:350px;
+
+    border-radius:12px;
+
+    background:#edf2f7;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.map-tag{
+
+    background:white;
+
+    padding:12px 20px;
+
+    border-radius:30px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-weight:600;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.12);
+
+}
+
+.map-tag svg{
+
+    color:#f59e0b;
+
+}

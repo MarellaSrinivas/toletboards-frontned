@@ -1,0 +1,137 @@
+.preference-section{
+
+    margin-bottom:30px;
+
+}
+
+.preference-section label{
+
+    display:block;
+
+    margin-bottom:12px;
+
+    font-weight:600;
+
+    color:#334155;
+
+}
+
+.chip-group{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+.chip{
+
+    border:1px solid #d5dce5;
+
+    background:#fff;
+
+    padding:12px 18px;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-size:14px;
+
+}
+
+.chip:hover{
+
+    border-color:#0f766e;
+
+}
+
+.active-chip{
+
+    background:#0f766e;
+
+    color:white;
+
+    border-color:#0f766e;
+
+}
+
+.toggle-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+    margin:35px 0;
+
+}
+
+.toggle-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px;
+
+    background:#f8fafc;
+
+    border-radius:10px;
+
+}
+
+.toggle-item span{
+
+    font-weight:500;
+
+    color:#334155;
+
+}
+
+.toggle-item input{
+
+    width:22px;
+
+    height:22px;
+
+    accent-color:#0f766e;
+
+    cursor:pointer;
+
+}
+
+.available-date{
+
+    margin-top:20px;
+
+}
+
+.available-date input{
+
+    width:250px;
+
+}
+
+@media(max-width:768px){
+
+.toggle-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.available-date input{
+
+width:100%;
+
+}
+
+}

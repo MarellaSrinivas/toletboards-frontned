@@ -1,0 +1,77 @@
+.amenity-title{
+
+    margin:30px 0 20px;
+
+    font-size:18px;
+
+    color:#0f172a;
+
+}
+
+.amenities-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:15px;
+
+}
+
+.amenity-chip{
+
+    padding:14px;
+
+    text-align:center;
+
+    border:1px solid #dbe4ec;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    background:#fff;
+
+    font-weight:500;
+
+}
+
+.amenity-chip:hover{
+
+    border-color:#0f766e;
+
+    color:#0f766e;
+
+}
+
+.amenity-chip.selected{
+
+    background:#0f766e;
+
+    color:#fff;
+
+    border-color:#0f766e;
+
+}
+
+@media(max-width:992px){
+
+.amenities-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.amenities-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}

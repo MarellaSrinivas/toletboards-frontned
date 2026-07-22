@@ -1,0 +1,61 @@
+.spec-card{
+
+    margin-top:30px;
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+}
+
+.spec-card h2{
+
+    margin-bottom:25px;
+
+}
+
+.spec-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+.spec-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:16px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.spec-item span{
+
+    color:#64748b;
+
+}
+
+.spec-item strong{
+
+    color:#0f172a;
+
+}
+
+@media(max-width:768px){
+
+.spec-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
