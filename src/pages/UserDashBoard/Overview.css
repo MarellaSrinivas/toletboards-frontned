@@ -1,0 +1,87 @@
+.overview {
+    width: 100%;
+}
+
+.overview-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 30px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #edf2f7;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg,#0d9488,#14b8a6);
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0,0,0,.12);
+}
+
+.stat-card h3 {
+    font-size: 42px;
+    color: #0d9488;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.stat-card p {
+    font-size: 16px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+/* Tablet */
+
+@media (max-width:992px){
+
+.stats-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+.overview-title{
+font-size:28px;
+}
+
+.stats-grid{
+grid-template-columns:1fr;
+}
+
+.stat-card{
+padding:22px;
+}
+
+.stat-card h3{
+font-size:36px;
+}
+
+}

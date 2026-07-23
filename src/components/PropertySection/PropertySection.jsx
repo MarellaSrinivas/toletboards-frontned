@@ -54,13 +54,13 @@ function PropertySection() {
 
           </div>
 
-          <button className="view-all-btn">
+        <a href="/Properties"  > <button className="view-all-btn">
 
             View All Listings
 
             <FaArrowRight />
 
-          </button>
+          </button> </a>
 
         </div>
 

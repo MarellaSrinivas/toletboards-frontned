@@ -1,0 +1,45 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f6f8fc;
+}
+
+.dashboard-sidebar {
+  width: 260px;
+  background: white;
+  padding: 25px;
+  border-right: 1px solid #eee;
+}
+
+.dashboard-sidebar button {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+/* .active {
+  background: #f39c12;
+  color: white;
+} */
+
+.dashboard-content {
+  flex: 1;
+  padding: 30px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+}
+

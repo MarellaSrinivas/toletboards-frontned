@@ -17,9 +17,9 @@ function CTASection() {
 
           <div className="cta-buttons">
 
-            <button className="primary-btn">
+           <a href="/list-property" > <button className="primary-btn">
               List a Property Now
-            </button>
+            </button> </a>
 
             <button className="secondary-btn">
               Contact Support

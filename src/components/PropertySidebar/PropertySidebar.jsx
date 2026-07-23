@@ -1,37 +1,136 @@
+import { useState } from "react";
 import "./PropertySidebar.css";
+
 import {
   FaPhoneAlt,
   FaUserCircle,
   FaChartLine,
 } from "react-icons/fa";
 
-function PropertySidebar() {
-  return (
-    <aside className="property-sidebar">
+import api from "../../api/api";
 
-      {/* Schedule Visit Card */}
+function PropertySidebar({ property }) {
+
+  const [visitDate, setVisitDate] = useState("");
+
+  const [visitTime, setVisitTime] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+const scheduleVisit = async (e) => {
+  e.preventDefault();
+
+  if (!visitDate || !visitTime) {
+    alert("Please select date and time.");
+    return;
+  }
+
+  const selectedDateTime = new Date(
+    `${visitDate}T${visitTime}`
+  );
+
+  const currentDateTime = new Date();
+
+  // Must be future
+  if (selectedDateTime <= currentDateTime) {
+    alert(
+      "Please select a future date and time."
+    );
+    return;
+  }
+
+  // Business hours validation
+  const [hours, minutes] =
+    visitTime.split(":").map(Number);
+
+  const totalMinutes =
+    hours * 60 + minutes;
+
+  const startMinutes = 7 * 60; // 07:00 AM
+  const endMinutes = 20 * 60; // 08:00 PM
+
+  if (
+    totalMinutes < startMinutes ||
+    totalMinutes > endMinutes
+  ) {
+    alert(
+      "Visit time must be between 7:00 AM and 8:00 PM."
+    );
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    await api.post("/visits", {
+      propertyId: property.id,
+      visitDate,
+      visitTime,
+    });
+
+    alert("Visit scheduled successfully.");
+
+    setVisitDate("");
+    setVisitTime("");
+
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Unable to schedule visit."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
+  return (
+
+    <aside className="property-sidebar">
 
       <div className="sidebar-card">
 
         <h3>Schedule a Visit</h3>
 
-        <form>
+        <form onSubmit={scheduleVisit}>
 
           <label>Preferred Date</label>
-          <input type="date" />
+
+    <input
+  type="date"
+  value={visitDate}
+  min={new Date().toISOString().split("T")[0]}
+  onChange={(e) =>
+    setVisitDate(e.target.value)
+  }
+  required
+/>
 
           <label>Preferred Time</label>
-          <input type="time" />
 
-          <button type="submit">
-            Schedule Visit
+     <input
+  type="time"
+  value={visitTime}
+  min="07:00"
+  max="20:00"
+  onChange={(e) =>
+    setVisitTime(e.target.value)
+  }
+  required
+/>
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Scheduling..."
+              : "Schedule Visit"}
           </button>
 
         </form>
 
       </div>
-
-      {/* Agent */}
 
       <div className="sidebar-card">
 
@@ -40,41 +139,85 @@ function PropertySidebar() {
           <FaUserCircle className="agent-icon" />
 
           <div>
-            <h4>Suresh Reddy</h4>
-            <span>SR Realty Properties</span>
+
+            <h4>{property.ownerName}</h4>
+
+            <span>Property Owner</span>
+
           </div>
 
         </div>
 
-        <button className="call-btn">
-          <FaPhoneAlt />
-          Call Agent
-        </button>
+   <button
+  className="call-btn"
+  onClick={() =>
+    window.location.href = `tel:${+919988776677}`
+  }
+>
+  <FaPhoneAlt />
+  Contact Owner
+</button>
 
       </div>
-
-      {/* Market */}
 
       <div className="market-card">
 
         <div className="market-title">
 
           <FaChartLine />
-          Market Insights
+
+          Property Information
 
         </div>
 
         <p>
-          Property value in HITEC City has increased by
-          <strong> 15%</strong> over the last year.
+
+          Monthly Rent:
+
+          <strong>
+
+            {" "}
+
+            ₹{Number(property.monthlyRent).toLocaleString("en-IN")}
+
+          </strong>
+
         </p>
 
-        <span>★★★★★ Excellent Investment</span>
+        <p>
+
+          Security Deposit:
+
+          <strong>
+
+            {" "}
+
+            ₹{Number(property.securityDeposit).toLocaleString("en-IN")}
+
+          </strong>
+
+        </p>
+
+        <p>
+
+          Maintenance:
+
+          <strong>
+
+            {" "}
+
+            ₹{Number(property.maintenanceCharges).toLocaleString("en-IN")}
+
+          </strong>
+
+        </p>
 
       </div>
 
     </aside>
+
   );
+
 }
 
 export default PropertySidebar;

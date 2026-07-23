@@ -219,35 +219,58 @@ function PropertyDetails() {
                 </p>
               </div>
 
-              <div className="price">
-                ₹
-                {Number(
-                  property.monthlyRent
-                ).toLocaleString("en-IN")}
-              </div>
+              <div className="price-section">
+
+  <h2>
+    ₹
+    {property.monthlyRent?.toLocaleString(
+      "en-IN"
+    )}
+    /month
+  </h2>
+
+  <p>
+    Deposit :
+    ₹
+    {property.securityDeposit?.toLocaleString(
+      "en-IN"
+    )}
+  </p>
+
+  <p>
+    Maintenance :
+    ₹
+    {property.maintenanceCharges?.toLocaleString(
+      "en-IN"
+    )}
+  </p>
+
+</div>
             </div>
 
-            <div className="feature-box">
-              <div>
-                <FaBuilding />
-                {property.propertyType}
-              </div>
+           <div className="feature-box">
 
-              <div>
-                <FaLayerGroup />
-                {property.bhk} BHK
-              </div>
+  <div>
+    <FaBuilding />
+    {property.propertyType}
+  </div>
 
-              <div>
-                <FaBuilding />
-                {property.furnishingStatus}
-              </div>
+  <div>
+    <FaLayerGroup />
+    {property.bhk} BHK
+  </div>
 
-              <div>
-                 <FaCalendarAlt />  Property Age : 
-                {property.propertyAge}
-              </div>
-            </div>
+  <div>
+    <FaBuilding />
+    {property.furnishingStatus}
+  </div>
+
+  <div>
+    <FaCalendarAlt />
+    {property.propertyAge} Years
+  </div>
+
+</div>
 
             <PropertyDescription
               description={

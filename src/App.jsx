@@ -6,7 +6,9 @@ import ListProperty from "./components/UploadProperty/ListProperty/ListProperty"
 import Login from "./pages/auth/login";
 import Signup from "./pages/auth/Signup";
 import Footer from "./components/Footer/Footer";
-
+import PropertyListingPage from "./pages/PropertyListingPage/PropertyListingPage";
+import Dashboard from "./pages/UserDashBoard/Dashboard";
+ 
  function App() {
   return (
 
@@ -20,6 +22,8 @@ import Footer from "./components/Footer/Footer";
         <Route path="/list-property"  element={<ListProperty />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/properties" element={<PropertyListingPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
 
 
       </Routes>

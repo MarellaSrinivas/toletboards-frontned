@@ -53,7 +53,7 @@ function Header() {
         {/* Desktop Navigation */}
         <nav className="nav desktop-nav">
           <a href="#">About Us</a>
-          <a href="#">Properties</a>
+          <a href="/Properties">Properties</a>
            <a href="#">Dashboard</a>
         </nav>
 
@@ -126,7 +126,7 @@ function Header() {
 
         <a href="#">About Us</a>
 
-        <a href="#">Properties</a>
+        <a href="/properties">Properties</a>
 
 
         <a href="#">Dashboard</a>
