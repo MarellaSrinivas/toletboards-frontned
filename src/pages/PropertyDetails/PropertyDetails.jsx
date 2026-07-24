@@ -34,6 +34,11 @@ function PropertyDetails() {
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
+  const [touchStart, setTouchStart] = useState(null);
+const [touchEnd, setTouchEnd] = useState(null);
+
+
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -65,7 +70,7 @@ function PropertyDetails() {
   const images =
     property?.imageUrls?.length > 0
       ? property.imageUrls.map(
-          (img) => `httpa://toletboards.com${img}`
+          (img) => `https://toletboards.com${img}`
         )
       : property?.coverImage
       ? [`https://toletboards.com${property.coverImage}`]
@@ -139,6 +144,46 @@ function PropertyDetails() {
     );
   }
 
+
+  const minSwipeDistance = 50;
+
+const onTouchStart = (e) => {
+  setTouchEnd(null);
+  setTouchStart(e.targetTouches[0].clientX);
+};
+
+const onTouchMove = (e) => {
+  setTouchEnd(e.targetTouches[0].clientX);
+};
+
+const onTouchEnd = () => {
+  if (!touchStart || !touchEnd) return;
+
+  const distance = touchStart - touchEnd;
+
+  const isLeftSwipe =
+    distance > minSwipeDistance;
+
+  const isRightSwipe =
+    distance < -minSwipeDistance;
+
+  if (isLeftSwipe) {
+    setCurrentImage((prev) =>
+      prev === images.length - 1
+        ? 0
+        : prev + 1
+    );
+  }
+
+  if (isRightSwipe) {
+    setCurrentImage((prev) =>
+      prev === 0
+        ? images.length - 1
+        : prev - 1
+    );
+  }
+};
+
   return (
     <section className="property-details">
       <div className="container">
@@ -168,29 +213,34 @@ function PropertyDetails() {
 
         {/* Mobile Gallery */}
 
-        <div className="mobile-gallery">
-          <img
-            src={images[currentImage]}
-            alt="Property"
-            className="mobile-slide-img"
-          />
+        <div
+  className="mobile-gallery"
+  onTouchStart={onTouchStart}
+  onTouchMove={onTouchMove}
+  onTouchEnd={onTouchEnd}
+>
+  <img
+    src={images[currentImage]}
+    alt="Property"
+    className="mobile-slide-img"
+  />
 
-          <div className="slider-dots">
-            {images.map((_, index) => (
-              <span
-                key={index}
-                className={
-                  currentImage === index
-                    ? "dot active-dot"
-                    : "dot"
-                }
-                onClick={() =>
-                  setCurrentImage(index)
-                }
-              />
-            ))}
-          </div>
-        </div>
+  <div className="slider-dots">
+    {images.map((_, index) => (
+      <span
+        key={index}
+        className={
+          currentImage === index
+            ? "dot active-dot"
+            : "dot"
+        }
+        onClick={() =>
+          setCurrentImage(index)
+        }
+      />
+    ))}
+  </div>
+</div>
 
         <div className="details-layout">
           <div className="details-left">

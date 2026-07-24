@@ -94,10 +94,15 @@ function PostPropertyModal({ isOpen, onClose }) {
               optimization.
             </p>
 
-            <button className="secondary-option">
-              Consult Expert
-            </button>
-
+     <button
+  className="secondary-option"
+  onClick={() =>
+    window.location.href =
+      "tel:7569685696"
+  }
+>
+  Consult Expert
+</button>
           </div>
 
         </div>

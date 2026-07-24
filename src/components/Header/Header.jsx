@@ -2,11 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./Header.css";
 import PostPropertyModal from "../PostPropertyModal/PostPropertyModal";
-import {
-  FaUserCircle,
-  FaBars,
-  FaTimes,
-} from "react-icons/fa";
+import { FaUserCircle,  FaBars,  FaTimes, } from "react-icons/fa";
 
 import logo from "../../assets/images/logo.png";
 
@@ -52,7 +48,7 @@ function Header() {
 
         {/* Desktop Navigation */}
         <nav className="nav desktop-nav">
-          <a href="#">About Us</a>
+          <a href="/aboutus">About Us</a>
           <a href="/Properties">Properties</a>
            <a href="#">Dashboard</a>
         </nav>
@@ -124,7 +120,7 @@ function Header() {
 
 </div>
 
-        <a href="#">About Us</a>
+        <a href="/aboutus">About Us</a>
 
         <a href="/properties">Properties</a>
 

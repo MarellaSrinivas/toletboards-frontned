@@ -8,6 +8,9 @@ import Signup from "./pages/auth/Signup";
 import Footer from "./components/Footer/Footer";
 import PropertyListingPage from "./pages/PropertyListingPage/PropertyListingPage";
 import Dashboard from "./pages/UserDashBoard/Dashboard";
+import AboutUs from "./pages/FooterPages/AboutUs";
+import Terms from "./pages/FooterPages/Terms";
+import PrivacyPolicy from "./pages/FooterPages/PrivacyPolicy";
  
  function App() {
   return (
@@ -25,6 +28,11 @@ import Dashboard from "./pages/UserDashBoard/Dashboard";
         <Route path="/properties" element={<PropertyListingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
 
+
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/terms-and-conditions" element={<Terms />} />
+        <Route path="/privacy-policy"  element={<PrivacyPolicy />} />
+ 
 
       </Routes>
 

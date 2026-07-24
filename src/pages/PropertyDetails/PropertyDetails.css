@@ -346,3 +346,18 @@ grid-template-columns:1fr;
     display: block;
   }
 }
+
+.mobile-gallery {
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.mobile-slide-img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: 0.3s ease;
+}

@@ -54,11 +54,11 @@ function Footer() {
             <ul>
 
               <li>
-                <a href="#">About Us</a>
+                <a href="/aboutus">About Us</a>
               </li>
 
               <li>
-                <a href="#">List Property</a>
+                <a href="/list-property">List Property</a>
               </li>
 
               <li>
@@ -78,11 +78,11 @@ function Footer() {
             <ul>
 
               <li>
-                <a href="#">Terms of Service</a>
+                <a href="terms-and-conditions">Terms of Service</a>
               </li>
 
               <li>
-                <a href="#">Privacy Policy</a>
+                <a href="privacy-policy">Privacy Policy</a>
               </li>
 
               <li>
