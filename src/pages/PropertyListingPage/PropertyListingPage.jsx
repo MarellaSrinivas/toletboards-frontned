@@ -39,8 +39,9 @@ const [selectedType, setSelectedType] =
 const [selectedFurnishing, setSelectedFurnishing] =
   useState("");
 
-const [maxPrice, setMaxPrice] = useState(150000);
-
+const [maxPrice, setMaxPrice] = useState(
+  price ? Number(price) : 150000
+);
 const [searchArea, setSearchArea] = useState(city || "");
 
 const [sortBy, setSortBy] =
@@ -49,13 +50,56 @@ const [sortBy, setSortBy] =
     fetchProperties();
   }, []);
 
+
+  const [showFilters, setShowFilters] =
+  useState(false);
+
+
  const fetchProperties = async () => {
   try {
     const data = await getAllProperties();
 
-    setAllProperties(data);
+    let filtered = [...data];
 
-    setProperties(data);
+    // City Filter
+    if (city) {
+      filtered = filtered.filter(
+        (item) =>
+          item.city
+            ?.toLowerCase()
+            .includes(city.toLowerCase())
+      );
+    }
+
+    // Property Type Filter
+    if (type) {
+      filtered = filtered.filter(
+        (item) =>
+          item.propertyType === type
+      );
+    }
+
+    // Price Filter from Hero
+    if (price) {
+      const selectedPrice = Number(price);
+
+      if (selectedPrice === 10000) {
+        filtered = filtered.filter(
+          (item) =>
+            Number(item.monthlyRent) <= 10000
+        );
+      }
+
+      if (selectedPrice === 20000) {
+        filtered = filtered.filter(
+          (item) =>
+            Number(item.monthlyRent) > 10000
+        );
+      }
+    }
+
+    setAllProperties(data);
+    setProperties(filtered);
   } catch (error) {
     console.error(error);
   } finally {
@@ -66,12 +110,19 @@ const [sortBy, setSortBy] =
 const applyFilters = () => {
   let filtered = [...allProperties];
 
-  if (city) {
+  if (searchArea.trim()) {
     filtered = filtered.filter(
       (item) =>
         item.city
           ?.toLowerCase()
-          .includes(city.toLowerCase())
+          .includes(
+            searchArea.toLowerCase()
+          ) ||
+        item.address
+          ?.toLowerCase()
+          .includes(
+            searchArea.toLowerCase()
+          )
     );
   }
 
@@ -101,7 +152,7 @@ const applyFilters = () => {
   filtered = filtered.filter(
     (item) =>
       Number(item.monthlyRent) <=
-      maxPrice
+      Number(maxPrice)
   );
 
   setProperties(filtered);
@@ -202,31 +253,20 @@ const handleSort = (value) => {
     <h4>Price Range (₹/mo)</h4>
 
     <input
-      type="range"
-      min="5000"
-      max="150000"
-      step="5000"
-      value={maxPrice}
-      onChange={(e) =>
-        setMaxPrice(e.target.value)
-      }
-    />
+  type="range"
+  min="5000"
+  max="150000"
+  step="5000"
+  value={maxPrice}
+  onChange={(e) =>
+    setMaxPrice(e.target.value)
+  }
+/>
 
-    <div className="price-boxes">
-
-      {/* <input
-        value="₹25,000"
-        readOnly
-      /> */}
-
-      <input
-        value={`₹${Number(
-          maxPrice
-        ).toLocaleString("en-IN")}`}
-        readOnly
-      />
-
-    </div>
+<div className="price-value">
+  Up to ₹
+  {Number(maxPrice).toLocaleString("en-IN")}
+</div>
 
   </div>
 
@@ -374,9 +414,9 @@ const handleSort = (value) => {
       ` in ${searchArea}`}
   </h2>
 
-  <div className="sort-box">
+  <div className="sort-box desktop-sort">
 
-    <span>Sort by:</span>
+    <span  >Sort by:</span>
 
     <select
       value={sortBy}
@@ -408,6 +448,54 @@ const handleSort = (value) => {
 
 </div>
 
+
+<div className="mobile-filter-bar">
+
+  <button
+    className="mobile-filter-btn"
+    onClick={() =>
+      setShowFilters(true)
+    }
+  >
+    ☰ Filters
+  </button>
+
+
+  <div className="sort-box mobile-sort">
+
+    <span>Sort by:</span>
+
+    <select
+      value={sortBy}
+      onChange={(e) =>
+        handleSort(
+          e.target.value
+        )
+      }
+    >
+      <option value="newest">
+        Newest First
+      </option>
+
+      <option value="priceLow">
+        Price Low to High
+      </option>
+
+      <option value="priceHigh">
+        Price High to Low
+      </option>
+
+      <option value="bhk">
+        Highest BHK
+      </option>
+
+    </select>
+
+  </div>
+
+
+</div>
+
             {loading ? (
               <h3>Loading...</h3>
             ) : (
@@ -429,6 +517,122 @@ const handleSort = (value) => {
           </div>
         </div>
       </div>
+
+      {showFilters && (
+  <>
+    <div
+      className="filter-overlay"
+      onClick={() =>
+        setShowFilters(false)
+      }
+    />
+
+    <div className="mobile-filter-drawer">
+
+      <div className="drawer-header">
+
+        <h3>Filters</h3>
+
+        <button
+          onClick={() =>
+            setShowFilters(false)
+          }
+        >
+          ✕
+        </button>
+
+      </div>
+
+      {/* Price */}
+
+      <div className="filter-group">
+
+        <h4>Price Range</h4>
+
+        <input
+          type="range"
+          min="5000"
+          max="150000"
+          step="5000"
+          value={maxPrice}
+          onChange={(e) =>
+            setMaxPrice(e.target.value)
+          }
+        />
+
+      </div>
+
+      {/* BHK */}
+
+      <div className="filter-group">
+
+        <h4>BHK Type</h4>
+
+        <div className="bhk-grid">
+
+          {[1, 2, 3, 4].map((bhk) => (
+            <button
+              key={bhk}
+              className={
+                selectedBhk === bhk
+                  ? "active-filter"
+                  : ""
+              }
+              onClick={() =>
+                setSelectedBhk(bhk)
+              }
+            >
+              {bhk} BHK
+            </button>
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* Type */}
+
+      <div className="filter-group">
+
+        <h4>Property Type</h4>
+
+        <select
+          value={selectedType}
+          onChange={(e) =>
+            setSelectedType(
+              e.target.value
+            )
+          }
+        >
+          <option value="">
+            All
+          </option>
+
+          <option value="Residential">
+            Residential
+          </option>
+
+          <option value="Commercial">
+            Commercial
+          </option>
+
+        </select>
+
+      </div>
+
+      <button
+        className="apply-filter-btn"
+        onClick={() => {
+          applyFilters();
+          setShowFilters(false);
+        }}
+      >
+        Apply Filters
+      </button>
+
+    </div>
+  </>
+)}
     </div>
   );
 }

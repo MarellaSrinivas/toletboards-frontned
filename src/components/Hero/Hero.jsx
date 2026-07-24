@@ -44,7 +44,7 @@ function Hero() {
               Tenants & Owners
             </span>
             <br />
-            Across Hyderabad
+            Across India
           </h1>
 
           <p>
@@ -72,7 +72,7 @@ function Hero() {
 
         <div className="search-card">
           <h2>
-            Find Your Next Investment
+            Find Your Next Home
           </h2>
 
           <div className="form-group">
@@ -140,12 +140,10 @@ function Hero() {
                 </option>
 
                 <option value="20000">
-                  Below 20k
+                  above 10k
                 </option>
 
-                <option value="50000">
-                  Below 50k
-                </option>
+      
               </select>
             </div>
           </div>

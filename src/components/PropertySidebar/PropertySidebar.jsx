@@ -151,7 +151,7 @@ const scheduleVisit = async (e) => {
    <button
   className="call-btn"
   onClick={() =>
-    window.location.href = `tel:${+919988776677}`
+    window.location.href = `tel:${+917569685696}`
   }
 >
   <FaPhoneAlt />

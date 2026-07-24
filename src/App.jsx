@@ -3,7 +3,7 @@ import Home from "./pages/Home/Home";
 import PropertyDetails from "./pages/PropertyDetails/PropertyDetails";
 import Header from "./components/Header/Header";
 import ListProperty from "./components/UploadProperty/ListProperty/ListProperty";
-import Login from "./pages/auth/login";
+import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Footer from "./components/Footer/Footer";
 import PropertyListingPage from "./pages/PropertyListingPage/PropertyListingPage";

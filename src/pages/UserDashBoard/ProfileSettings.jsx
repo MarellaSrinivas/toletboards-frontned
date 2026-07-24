@@ -105,7 +105,7 @@ function ProfileSettings() {
 
           src={
             formData.profileImage
-              ? `http://localhost:8080${formData.profileImage}`
+              ? `https://toletboards.com${formData.profileImage}`
               : "https://i.pravatar.cc/200"
           }
 

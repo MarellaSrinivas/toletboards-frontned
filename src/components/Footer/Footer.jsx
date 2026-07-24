@@ -33,7 +33,7 @@ function Footer() {
                 <FaFacebookF />
               </a>
 
-              <a href="#">
+              <a href="https://www.instagram.com/tolet_boards/">
                 <FaInstagram />
               </a>
 
@@ -109,7 +109,7 @@ function Footer() {
 
               <FaPhoneAlt />
 
-              <span>+91 9988776655</span>
+              <span>+91 75696 85696</span>
 
             </div>
 

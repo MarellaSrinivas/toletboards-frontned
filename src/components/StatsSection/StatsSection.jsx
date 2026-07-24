@@ -1,20 +1,20 @@
 import "./StatsSection.css";
 
-const stats = [
+const metrics = [
   {
     id: 1,
-    value: "2.4K+",
+    value: "100+",
     label: "LISTED PROPERTIES",
   },
   {
     id: 2,
-    value: "150+",
+    value: "15+",
     label: "CORPORATE PARTNERS",
   },
   {
     id: 3,
-    value: "₹1,500 Cr",
-    label: "MANAGED ASSETS",
+    value: "1K+",
+    label: "HAPPY CUSTOMERS",
   },
   {
     id: 4,
@@ -25,23 +25,16 @@ const stats = [
 
 function StatsSection() {
   return (
-    <section className="stats-section">
+    <section className="home-metrics-section">
       <div className="container">
-
-        <div className="stats-grid">
-
-          {stats.map((item) => (
-            <div className="stat-card" key={item.id}>
-
+        <div className="home-metrics-grid">
+          {metrics.map((item) => (
+            <div className="home-metric-card" key={item.id}>
               <h2>{item.value}</h2>
-
               <p>{item.label}</p>
-
             </div>
           ))}
-
         </div>
-
       </div>
     </section>
   );

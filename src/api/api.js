@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
- // baseURL: "http://localhost:8080/api",
-  baseURL: "http://192.168.0.127:8080/api",
+ baseURL:"/api",
+  // baseURL: "http://localhost:8080/api",
+  //baseURL:"https://toletboards.com/api",
  headers: {
     "Content-Type": "application/json",
   },
@@ -44,7 +45,7 @@ api.interceptors.response.use(
         const refreshToken = localStorage.getItem("refreshToken");
 
         const response = await axios.post(
-          "http://localhost:8080/api/auth/refresh-token",
+          "https://toletboards.com/api/auth/refresh-token",
           {
             refreshToken,
           }

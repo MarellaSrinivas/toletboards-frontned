@@ -75,7 +75,7 @@ function MyListings() {
                 <img
                   src={
                     property.coverImage
-                      ? `http://localhost:8080${property.coverImage}`
+                      ? `https://toletboards.com${property.coverImage}`
                       : "/images/no-image.jpg"
                   }
                   alt={property.propertyName}

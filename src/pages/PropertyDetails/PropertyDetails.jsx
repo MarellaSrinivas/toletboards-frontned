@@ -65,10 +65,10 @@ function PropertyDetails() {
   const images =
     property?.imageUrls?.length > 0
       ? property.imageUrls.map(
-          (img) => `http://localhost:8080${img}`
+          (img) => `httpa://toletboards.com${img}`
         )
       : property?.coverImage
-      ? [`http://localhost:8080${property.coverImage}`]
+      ? [`https://toletboards.com${property.coverImage}`]
       : [
           "https://via.placeholder.com/800x500?text=Property",
           "https://via.placeholder.com/800x500?text=Property",

@@ -17,7 +17,7 @@ function PropertyCard({ property }) {
         <div className="property-image">
 
           <img
-            src={`http://localhost:8080${property.coverImage}`}
+            src={`https://toletboards.com${property.coverImage}`}
             alt={property.propertyName}
           />
 
