@@ -11,6 +11,7 @@ import Dashboard from "./pages/UserDashBoard/Dashboard";
 import AboutUs from "./pages/FooterPages/AboutUs";
 import Terms from "./pages/FooterPages/Terms";
 import PrivacyPolicy from "./pages/FooterPages/PrivacyPolicy";
+import ContactUs from "./pages/FooterPages/ContactUs";
  
  function App() {
   return (
@@ -32,7 +33,8 @@ import PrivacyPolicy from "./pages/FooterPages/PrivacyPolicy";
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/terms-and-conditions" element={<Terms />} />
         <Route path="/privacy-policy"  element={<PrivacyPolicy />} />
- 
+        <Route path="/contactus" element={<ContactUs />} />
+
 
       </Routes>
 

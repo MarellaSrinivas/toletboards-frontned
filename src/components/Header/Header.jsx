@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+
 import "./Header.css";
 import PostPropertyModal from "../PostPropertyModal/PostPropertyModal";
 import { FaUserCircle,  FaBars,  FaTimes, } from "react-icons/fa";
@@ -10,8 +11,8 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-
   const navigate = useNavigate();
+  const menuRef = useRef(null);
 
   // Profile icon click
   const handleProfileClick = () => {
@@ -35,6 +36,33 @@ function Header() {
     }
   };
 
+
+  useEffect(() => {
+  const handleScroll = () => {
+    setMenuOpen(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target) &&
+      !event.target.closest(".hamburger")
+    ) {
+      setMenuOpen(false);
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  document.addEventListener("mousedown", handleClickOutside);
+  document.addEventListener("touchstart", handleClickOutside);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+    document.removeEventListener("mousedown", handleClickOutside);
+    document.removeEventListener("touchstart", handleClickOutside);
+  };
+}, []);
+
   return (
 
     
@@ -49,8 +77,8 @@ function Header() {
         {/* Desktop Navigation */}
         <nav className="nav desktop-nav">
           <a href="/aboutus">About Us</a>
-          <a href="/Properties">Properties</a>
-           <a href="#">Dashboard</a>
+          <a href="/properties">Properties</a>
+           <a href="/contactus">Contact Us</a>
         </nav>
 
         {/* Desktop Right */}
@@ -84,9 +112,9 @@ function Header() {
   onClick={handleProfileClick}
 />
   <div
-    className="hamburger"
-    onClick={() => setMenuOpen(true)}
-  >
+  className="hamburger"
+  onClick={() => setMenuOpen(!menuOpen)}
+>
     <FaBars />
   </div>
 
@@ -101,8 +129,10 @@ function Header() {
       ></div>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu ${menuOpen ? "active" : ""}`}>
-
+<div
+  ref={menuRef}
+  className={`mobile-menu ${menuOpen ? "active" : ""}`}
+>
         <div className="mobile-header">
 
   <Link
@@ -125,7 +155,7 @@ function Header() {
         <a href="/properties">Properties</a>
 
 
-        <a href="#">Dashboard</a>
+        <a href="/contactus">Contact Us</a>
 
        <button
   className="post-btn mobile-btn"

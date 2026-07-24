@@ -1,8 +1,13 @@
 import api from "./api";
 
 export const getAllProperties = async () => {
-  const response = await api.get("/properties");
-  return response.data;
+  try {
+    const response = await axios.get("/properties");
+    return response.data ?? [];
+  } catch (error) {
+    console.error("API Error:", error);
+    return [];  
+  }
 };
 
 export const getPropertyById = async (id) => {

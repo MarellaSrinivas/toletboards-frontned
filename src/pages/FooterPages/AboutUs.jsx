@@ -1,5 +1,5 @@
 import React from "react";
-import "./AboutUs.css";
+import "./Aboutus.css";
 import buildingImg from "../../assets/images/auth-banner.png";
 import heroImg from "../../assets/images/hero-bg.png";
  
