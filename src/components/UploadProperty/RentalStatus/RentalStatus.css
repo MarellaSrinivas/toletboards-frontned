@@ -76,6 +76,7 @@ margin-top:5px;
 
 flex-wrap:wrap;
 
+
 }
 
 .status-buttons button{
@@ -129,12 +130,15 @@ grid-template-columns:1fr;
 .status-buttons{
 
 flex-direction:column;
+min-height: 30px !important;
 
 }
 
 .status-buttons button{
 
 width:100%;
+min-height: 30px !important;
+
 
 }
 

@@ -35,32 +35,25 @@ const handleLogin = async () => {
       password: formData.password,
     });
 
-    console.log("Login Success:", response.data);
+    const {
+      accessToken,
+      refreshToken,
+      userId,
+      role,
+    } = response.data;
 
-    // Store tokens
-    if (response.data.accessToken) {
-      localStorage.setItem(
-        "token",
-        response.data.accessToken
-      );
+    // Store authentication data
+    localStorage.setItem("token", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("role", role);
+
+    // Navigate according to role
+    if (role === "ROLE_ADMIN") {
+      navigate("/admin/dashboard");
+    } else {
+      navigate(redirectTo || "/dashboard");
     }
-
-    if (response.data.refreshToken) {
-      localStorage.setItem(
-        "refreshToken",
-        response.data.refreshToken
-      );
-    }
-
-    if (response.data.userId) {
-      localStorage.setItem(
-        "userId",
-        response.data.userId
-      );
-    }
-
-    // Navigate after successful login
-navigate(redirectTo);
 
   } catch (error) {
     console.error("Login Failed:", error);

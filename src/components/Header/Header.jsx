@@ -17,11 +17,18 @@ function Header() {
   // Profile icon click
   const handleProfileClick = () => {
     const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
 
-    if (token) {
-      navigate("/dashboard");
+
+    if (!token) {
+        navigate("/login");
+        return;
+    }
+
+       if (role === "USER_ADMIN") {
+        navigate("/admin/dashboard");
     } else {
-      navigate("/login");
+        navigate("/dashboard");
     }
   };
 

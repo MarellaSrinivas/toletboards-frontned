@@ -1,0 +1,106 @@
+.admin-visits-page{
+    padding:30px;
+}
+
+.admin-page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.visit-filter{
+    margin-bottom:20px;
+}
+
+.visit-filter select{
+    padding:10px 15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+.admin-table-wrapper{
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.admin-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.admin-table th,
+.admin-table td{
+    padding:15px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+}
+
+.admin-table th{
+    background:#f7f7f7;
+}
+
+.visit-status{
+    padding:6px 12px;
+    border-radius:20px;
+    color:#fff;
+    font-size:13px;
+}
+
+.visit-status.pending{
+    background:#f39c12;
+}
+
+.visit-status.approved{
+    background:#3498db;
+}
+
+.visit-status.completed{
+    background:#2ecc71;
+}
+
+.visit-status.cancelled{
+    background:#e74c3c;
+}
+
+.admin-pagination{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+.admin-pagination button{
+    padding:8px 18px;
+    cursor:pointer;
+}
+
+
+.visit-modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.visit-modal{
+    width:500px;
+    background:#fff;
+    border-radius:12px;
+    padding:30px;
+}
+
+.visit-modal h4{
+    margin-top:20px;
+}
+
+.visit-modal button{
+    margin-top:20px;
+    padding:10px 25px;
+    cursor:pointer;
+}

@@ -545,22 +545,25 @@ const handleSort = (value) => {
 
       {/* Price */}
 
-      <div className="filter-group">
+    <div className="filter-group">
+  <h4>Price Range</h4>
 
-        <h4>Price Range</h4>
+  <input
+    type="range"
+    min="5000"
+    max="150000"
+    step="5000"
+    value={maxPrice}
+    onChange={(e) =>
+      setMaxPrice(e.target.value)
+    }
+  />
 
-        <input
-          type="range"
-          min="5000"
-          max="150000"
-          step="5000"
-          value={maxPrice}
-          onChange={(e) =>
-            setMaxPrice(e.target.value)
-          }
-        />
-
-      </div>
+  <div className="price-value">
+    Up to ₹
+    {Number(maxPrice).toLocaleString("en-IN")}
+  </div>
+</div>
 
       {/* BHK */}
 
@@ -620,15 +623,26 @@ const handleSort = (value) => {
 
       </div>
 
-      <button
-        className="apply-filter-btn"
-        onClick={() => {
-          applyFilters();
-          setShowFilters(false);
-        }}
-      >
-        Apply Filters
-      </button>
+     <div className="mobile-filter-actions">
+
+  <button
+    className="mobile-reset-btn"
+    onClick={resetFilters}
+  >
+    Reset
+  </button>
+
+  <button
+    className="apply-filter-btn"
+    onClick={() => {
+      applyFilters();
+      setShowFilters(false);
+    }}
+  >
+    Apply Filters
+  </button>
+
+</div>
 
     </div>
   </>

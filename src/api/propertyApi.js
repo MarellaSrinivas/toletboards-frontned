@@ -2,7 +2,7 @@ import api from "./api";
 
 export const getAllProperties = async () => {
   try {
-    const response = await axios.get("/properties");
+    const response = await api.get("/properties");
     return response.data ?? [];
   } catch (error) {
     console.error("API Error:", error);

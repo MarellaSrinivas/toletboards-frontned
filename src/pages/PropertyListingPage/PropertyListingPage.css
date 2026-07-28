@@ -166,7 +166,7 @@
   background: #a86600;
   color: white;
   border: none;
-  padding: 0 28px;
+  padding: 0 10px;
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
@@ -286,11 +286,13 @@
   .desktop-sort{
     display: none;
   }
-  .mobile-sort{
-display:block;
-    padding-left: 80px;
-    padding-top: 10px;
-  }
+.mobile-sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  margin-left: auto;
+}
 }
 
 
@@ -302,4 +304,36 @@ display:block;
   color: #ff7a00;
 }
 
- 
+
+.mobile-filter-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.mobile-reset-btn {
+  flex: 1;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mobile-reset-btn:hover {
+  background: #f5f5f5;
+}
+
+.mobile-filter-actions .apply-filter-btn {
+  flex: 1;
+}
+
+.price-value {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff7a00;
+}
