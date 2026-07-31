@@ -59,7 +59,7 @@ const ContactUs = () => {
         <div className="info-icon">📍</div>
         <div>
           <h4>Office Address</h4>
-          <p>Hyderabad, Telangana, India</p>
+          <p> S Chandra Reddy Towers, Hitech City Road Divert, Madhapur, Hyderabad, Telangana 500081.</p>
         </div>
       </div>
 

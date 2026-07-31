@@ -278,7 +278,7 @@ const handleSort = (value) => {
 
     <div className="bhk-grid">
 
-      {[1, 2, 3, 4].map((bhk) => (
+      {[1, 2, 3, 4, 5 ].map((bhk) => (
         <button
           key={bhk}
           className={

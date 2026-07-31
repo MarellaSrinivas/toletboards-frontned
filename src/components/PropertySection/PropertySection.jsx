@@ -10,11 +10,6 @@ function PropertySection() {
 
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-
-    fetchProperties();
-
-  }, []);
 
   const fetchProperties = async () => {
 
@@ -23,6 +18,8 @@ function PropertySection() {
       const data = await getAllProperties();
 
       setProperties(data);
+              console.log(data);
+
 
     } catch (error) {
 
@@ -35,6 +32,13 @@ function PropertySection() {
     }
 
   };
+
+    useEffect(() => {
+
+    fetchProperties();
+
+
+  }, []);
 
   return (
 

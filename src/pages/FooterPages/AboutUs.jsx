@@ -42,7 +42,7 @@ const About = () => {
             />
  
             <div className="company-story__badge">
-              <h3>7+</h3>
+              <h3>1+</h3>
               <p>Years of Expertise</p>
             </div>
           </div>

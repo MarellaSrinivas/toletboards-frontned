@@ -23,11 +23,14 @@ function PropertyConfiguration({
   onChange={handleChange}
 >
   <option value="">Select BHK</option>
+    <option value="8">1 RK</option>
   <option value="1">1 BHK</option>
   <option value="2">2 BHK</option>
   <option value="3">3 BHK</option>
   <option value="4">4 BHK</option>
   <option value="5">5 BHK</option>
+  <option value="6">Pent House</option>
+  <option value="7">Farm House</option>
 </select>
         </div>
 
