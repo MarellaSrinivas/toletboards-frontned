@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import "./ProfileSettings.css";
 import api from "../../api/api";
@@ -5,7 +6,7 @@ import api from "../../api/api";
 function ProfileSettings() {
 
   const [loading, setLoading] = useState(true);
-
+  const [deleting, setDeleting] = useState(false);
   const [editing, setEditing] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -23,9 +24,7 @@ function ProfileSettings() {
   });
 
   useEffect(() => {
-
     fetchProfile();
-
   }, []);
 
   const fetchProfile = async () => {
@@ -41,7 +40,7 @@ function ProfileSettings() {
 
     } catch (err) {
 
-      console.error(err);
+      console.error("Profile fetch error:", err);
 
     } finally {
 
@@ -54,11 +53,8 @@ function ProfileSettings() {
   const handleChange = (e) => {
 
     setFormData({
-
       ...formData,
-
       [e.target.name]: e.target.value
-
     });
 
   };
@@ -75,7 +71,7 @@ function ProfileSettings() {
 
     } catch (err) {
 
-      console.error(err);
+      console.error("Profile update error:", err);
 
       alert("Unable to update profile");
 
@@ -83,10 +79,56 @@ function ProfileSettings() {
 
   };
 
+  // DELETE ACCOUNT
+  const handleDeleteAccount = async () => {
+
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your account?\n\n" +
+      "This action cannot be undone."
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+
+      setDeleting(true);
+
+      await api.delete("/user/profile");
+
+      alert("Your account has been deleted successfully.");
+
+      // Clear authentication data
+      localStorage.removeItem("token");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
+      localStorage.removeItem("userId");
+
+      // Redirect to login
+      window.location.href = "/login";
+
+    } catch (err) {
+
+      console.error("Delete account error:", err);
+
+      const message =
+        err?.response?.data?.message ||
+        "Unable to delete your account. Please try again.";
+
+      alert(message);
+
+    } finally {
+
+      setDeleting(false);
+
+    }
+
+  };
+
   if (loading) {
-
     return <h2>Loading...</h2>;
-
   }
 
   return (
@@ -102,17 +144,13 @@ function ProfileSettings() {
       <div className="profile-top-card">
 
         <img
-
           src={
             formData.profileImage
               ? `https://toletboards.com${formData.profileImage}`
               : "https://i.pravatar.cc/200"
           }
-
           alt="profile"
-
           className="profile-image"
-
         />
 
         <div className="profile-info">
@@ -122,41 +160,29 @@ function ProfileSettings() {
             <h3>{formData.fullName}</h3>
 
             {formData.verified && (
-
               <span className="verified-badge">
-
                 Verified Owner
-
               </span>
-
             )}
 
           </div>
 
           <p>
-
             Member since {formData.memberSince}
-
           </p>
 
           <div className="profile-stats">
 
             <span>
-
               {formData.activeProperties} Active Listings
-
             </span>
 
             <span>
-
               ⭐ {formData.rating}
-
             </span>
 
             <span>
-
               {formData.city}, {formData.state}
-
             </span>
 
           </div>
@@ -174,17 +200,10 @@ function ProfileSettings() {
             <h3>Personal Information</h3>
 
             <button
-
               className="edit-btn"
-
-              onClick={() =>
-                setEditing(!editing)
-              }
-
+              onClick={() => setEditing(!editing)}
             >
-
               {editing ? "Cancel" : "Edit"}
-
             </button>
 
           </div>
@@ -198,15 +217,10 @@ function ProfileSettings() {
                 <label>Full Name</label>
 
                 <input
-
                   name="fullName"
-
                   value={formData.fullName}
-
                   onChange={handleChange}
-
                   readOnly={!editing}
-
                 />
 
               </div>
@@ -216,11 +230,8 @@ function ProfileSettings() {
                 <label>Email</label>
 
                 <input
-
                   value={formData.email}
-
                   readOnly
-
                 />
 
               </div>
@@ -230,15 +241,10 @@ function ProfileSettings() {
                 <label>Phone</label>
 
                 <input
-
                   name="phone"
-
                   value={formData.phone}
-
                   onChange={handleChange}
-
                   readOnly={!editing}
-
                 />
 
               </div>
@@ -248,21 +254,14 @@ function ProfileSettings() {
                 <label>Language</label>
 
                 <select
-
                   name="language"
-
                   value={formData.language}
-
                   onChange={handleChange}
-
                   disabled={!editing}
-
                 >
 
                   <option>English</option>
-
                   <option>Telugu</option>
-
                   <option>Hindi</option>
 
                 </select>
@@ -322,22 +321,21 @@ function ProfileSettings() {
             </div>
 
             <div className="security-item">
-
               Change Password
-
             </div>
 
             <div className="security-item">
-
               Two-Factor Authentication
-
             </div>
 
-            <div className="security-item delete-account">
-
-              Delete Account
-
-            </div>
+            <button
+              type="button"
+              className="security-item delete-account"
+              onClick={handleDeleteAccount}
+              disabled={deleting}
+            >
+              {deleting ? "Deleting Account..." : "Delete Account"}
+            </button>
 
           </div>
 
@@ -348,29 +346,19 @@ function ProfileSettings() {
       <div className="profile-actions">
 
         <button
-
           className="discard-btn"
-
           onClick={fetchProfile}
-
         >
-
           Discard
-
         </button>
 
         {editing && (
 
           <button
-
             className="save-btn"
-
             onClick={saveProfile}
-
           >
-
             Save Changes
-
           </button>
 
         )}
@@ -384,3 +372,4 @@ function ProfileSettings() {
 }
 
 export default ProfileSettings;
+
