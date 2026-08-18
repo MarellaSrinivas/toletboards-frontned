@@ -48,14 +48,14 @@ const About = () => {
           </div>
  
           <div className="company-story__content">
-            <span className="company-story__label">THE TRI-LEAF STORY</span>
+            <span className="company-story__label">THE Tolet Boards STORY</span>
  
             <h2 className="company-story__title">
               Bridging the Gap in Corporate Real Estate
             </h2>
  
             <p className="company-story__text">
-              Born in the heart of HITEC City, Tri-Leaf Boards emerged from
+              Born in the heart of HITEC City, Tolet Boards emerged from
               a simple realization: Hyderabad's real estate market was
               fragmented. Tenants struggled to find verified spaces, and
               property owners lacked a professional B2B channel to reach
@@ -167,8 +167,8 @@ const About = () => {
         <div className="cta-section__content">
           <h2>Ready to Find Your Next Space?</h2>
           <p>
-            Join thousands of owners and tenants already using Tri-Leaf
-            Boards to navigate Hyderabad's real estate market.
+            Join thousands of owners and tenants already using Tolet Boards
+            to navigate Hyderabad's real estate market.
           </p>
  
           <div className="cta-section__buttons">
