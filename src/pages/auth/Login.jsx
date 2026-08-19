@@ -1,6 +1,12 @@
 import { Link, useNavigate, useLocation} from "react-router-dom";
 import { useState,useEffect  } from "react";
-import { FaEnvelope, FaLock, FaPhone } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaLock,
+  FaPhone,
+  FaEye,
+  FaEyeSlash
+} from "react-icons/fa";
 import api from "../../api/api";
 import "./Auth.css";
 
@@ -15,7 +21,7 @@ const redirectTo =
   location.state?.redirectTo || "/";
 
   const [formData, setFormData] = useState({
-    email: "",
+    identifier: "",
     password: "",
   });
 
@@ -26,20 +32,109 @@ const [showPhoneForm, setShowPhoneForm] = useState(false);
 const [phone, setPhone] = useState("");
 const [phoneError, setPhoneError] = useState("");
 const [googleUser, setGoogleUser] = useState(null);
+const [errors, setErrors] = useState({
+  identifier: "",
+  password: "",
+});
+const [loginError, setLoginError] = useState("");
 
+const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+ const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  let newValue = value;
+
+  if (name === "identifier") {
+
+    if (/^\d/.test(value)) {
+      newValue = value.replace(/\D/g, "");
+    }
+
+    newValue = newValue.slice(0, 32);
+  }
+
+  if (name === "password") {
+    newValue = value.slice(0, 16);
+  }
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: newValue,
+  }));
+
+  // Clear field validation error
+  setErrors((prev) => ({
+    ...prev,
+    [name]: "",
+  }));
+
+  // Clear backend login error
+  setLoginError("");
+};
+
+const validateForm = () => {
+  const newErrors = {
+    identifier: "",
+    password: "",
   };
+
+  const identifier = formData.identifier.trim();
+  const password = formData.password;
+
+  // Identifier validation
+  if (!identifier) {
+    newErrors.identifier = "Email or phone number is required.";
+  } else if (identifier.length < 5) {
+    newErrors.identifier =
+      "Email or phone number must be at least 5 characters.";
+  } else if (identifier.length > 32) {
+    newErrors.identifier =
+      "Email or phone number cannot exceed 32 characters.";
+  } else if (/^\d+$/.test(identifier)) {
+    // Phone validation
+    if (identifier.length !== 10) {
+      newErrors.identifier =
+        "Phone number must be exactly 10 digits.";
+    }
+  } else {
+    // Email validation
+    const emailRegex =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(identifier)) {
+      newErrors.identifier =
+        "Please enter a valid email or 10-digit phone number.";
+    }
+  }
+
+  // Password validation
+  if (!password) {
+    newErrors.password = "Password is required.";
+  } else if (password.length < 5) {
+    newErrors.password =
+      "Password must be at least 5 characters.";
+  } else if (password.length > 16) {
+    newErrors.password =
+      "Password cannot exceed 16 characters.";
+  }
+
+  setErrors(newErrors);
+
+  return !newErrors.identifier && !newErrors.password;
+};
+
 const handleLogin = async () => {
+
+  if (!validateForm()) {
+    return;
+  }
+
   try {
     setLoading(true);
 
     const response = await api.post("/auth/login", {
-      email: formData.email,
+      identifier: formData.identifier.trim(),
       password: formData.password,
     });
 
@@ -50,13 +145,11 @@ const handleLogin = async () => {
       role,
     } = response.data;
 
-    // Store authentication data
     localStorage.setItem("token", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
     localStorage.setItem("userId", userId);
     localStorage.setItem("role", role);
 
-    // Navigate according to role
     if (role === "ROLE_ADMIN") {
       navigate("/");
     } else {
@@ -64,18 +157,33 @@ const handleLogin = async () => {
     }
 
   } catch (error) {
-    console.error("Login Failed:", error);
 
-    if (error.response) {
-      alert(error.response.data.message || "Login failed.");
-    } else {
-      alert("Something went wrong!");
-    }
-  } finally {
-    setLoading(false);
+  console.error(
+    "Login Failed:",
+    error.response?.data || error
+  );
+
+  if (error.response) {
+
+    setLoginError(
+      error.response.data?.message ||
+      "Login failed. Please try again."
+    );
+
+  } else {
+
+    setLoginError(
+      "Unable to connect to the server. Please try again."
+    );
+
   }
-};
 
+} finally {
+
+  setLoading(false);
+
+}
+};
 
  
 const handleGoogleSuccess = async (response) => {
@@ -395,32 +503,77 @@ useEffect(() => {
 
           <p>Login to continue.</p>
 
-          <div className="input-box">
-            <FaEnvelope />
-            <input
-              type="email"
-              name="email"
-              placeholder="john@example.com"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </div>
+         <div className="input-box">
+  {formData.identifier.match(/^\d/) ? (
+    <FaPhone />
+  ) : (
+    <FaEnvelope />
+  )}
 
-          <div className="input-box">
-            <FaLock />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </div>
+  <input
+    type="text"
+    name="identifier"
+    placeholder="Email or phone number"
+    value={formData.identifier}
+    maxLength={32}
+    onChange={handleChange}
+  />
+</div>
 
-          <button
+<div className="input-box password-box">
+
+  <FaLock />
+
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    placeholder="Password"
+    value={formData.password}
+    maxLength={16}
+    onChange={handleChange}
+  />
+
+  <button
+    type="button"
+    className="password-eye"
+    onClick={() =>
+      setShowPassword((prev) => !prev)
+    }
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </button>
+
+</div>
+
+{/* Field validation errors */}
+
+{(errors.identifier || errors.password) && (
+  <p className="input-error">
+
+    {errors.identifier && (
+      <>
+        {errors.identifier}
+        {errors.password && <br />}
+      </>
+    )}
+
+    {errors.password && errors.password}
+
+  </p>
+)}
+
+{/* Backend login error */}
+
+{loginError && (
+  <p className="input-error backend-error">
+    {loginError}
+  </p>
+)}
+
+         <button
   className="auth-btn"
   onClick={handleLogin}
-  disabled={loading}
+  
 >
   {loading ? "Logging in..." : "Login"}
 </button>
